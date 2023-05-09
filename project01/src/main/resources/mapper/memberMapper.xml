@@ -13,4 +13,11 @@
 --  이메일과 비밀번호가 둘다 일치하는 확인
         select * from member_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
     </select>
+    <select id="findAll" resultType="member">
+        select * from member_table
+    </select>
+
+    <select id="findById" parameterType="Long" resultType="member">
+        select * from member_table where id=#{id}
+    </select>
 </mapper>

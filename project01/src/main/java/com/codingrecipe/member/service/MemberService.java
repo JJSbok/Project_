@@ -5,6 +5,8 @@ import com.codingrecipe.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor // final이 붙어야만 사용가능 생성자 주입
 public class MemberService {
@@ -21,5 +23,13 @@ public class MemberService {
         }else{
             return false;
         }
+    }
+
+    public List<MemberDTO> findAll() {
+        return memberRepository.findAll();
+    }
+
+    public MemberDTO findById(Long id) {
+        return memberRepository.findById(id);
     }
 }
