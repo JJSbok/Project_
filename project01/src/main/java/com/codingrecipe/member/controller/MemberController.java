@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -32,4 +34,22 @@ if (saveResult> 0){
 }
     }
 
+
+    @GetMapping("/login")
+    public String loginForm(){
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute MemberDTO memberDTO,
+                        HttpSession session){
+        boolean loginResult = memberService.login(memberDTO);
+        if(loginResult){
+            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
+            return "main";
+        }else{
+            return "login";
+
+        }
+    }
 }

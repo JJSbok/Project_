@@ -8,4 +8,9 @@
     values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberAge}, #{memberMobile})
 
     </insert>
+<!--    parameterType 넘겨받을 값-->
+    <select id="login" parameterType="member" resultType="member">
+--  이메일과 비밀번호가 둘다 일치하는 확인
+        select * from member_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
+    </select>
 </mapper>
