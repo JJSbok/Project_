@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+
+
 @Controller
 @RequestMapping("/member")
 @RequiredArgsConstructor
@@ -64,5 +66,31 @@ if (saveResult> 0){
         MemberDTO memberDTO = memberService.findById(id);
         model.addAttribute("member", memberDTO);
         return "detail";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") Long id) {
+        memberService.delete(id);
+        return "redirect:/member/";
+    }
+
+    @GetMapping("/update")
+    public String updateForm(HttpSession session, Model model){
+        // 세션에 저장된 나의 이메일 가져오기
+        String loginEmail = (String)session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(loginEmail);
+        model.addAttribute("member", memberDTO);
+        return "update";
+    }
+
+    // 수정 후 처리
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO){
+        boolean result = memberService.update(memberDTO);
+        if(result){
+            return "redirect:/member?id=" + memberDTO.getId();
+        } else{
+            return "index";
+        }
     }
 }

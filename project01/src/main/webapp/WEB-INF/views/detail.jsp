@@ -29,6 +29,9 @@
         <th>mobile</th>
         <td>${member.memberMobile}</td>
     </tr>
+    <tr>
+        <input type="button" value="리스트" onclick="location.href='/index.jsp'">
+    </tr>
 </table>
 </body>
 </html>
