@@ -18,9 +18,9 @@ public class MemberService {
 
     public boolean login(MemberDTO memberDTO) {
         MemberDTO loginMember = memberRepository.login(memberDTO);
-        if(loginMember != null){
+        if (loginMember != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -42,12 +42,22 @@ public class MemberService {
     }
 
     public boolean update(MemberDTO memberDTO) {
-        int result =  memberRepository.update(memberDTO);
-        if(result > 0){
+        int result = memberRepository.update(memberDTO);
+        if (result > 0) {
             return true;
-        } else{
+        } else {
             return false;
         }
 
     }
+
+    public String emailCheck(String memberEmail) {
+        MemberDTO memberDTO = memberRepository.findByMemberEmail(memberEmail);
+        if (memberDTO == null) {
+            return "ok";
+        } else {
+            return "no";
+        }
+    }
 }
+
