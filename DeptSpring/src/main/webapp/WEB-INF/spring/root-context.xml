@@ -18,11 +18,13 @@
         : Service / Dao 관련
     -->
 
+    <context:component-scan base-package="com.hi.deptspring.deptspring.service" />
+
     <bean id="hikariConfig"
           class="com.zaxxer.hikari.HikariConfig"
     >
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/project"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mydb"></property>
         <property name="username" value="root"></property>
         <property name="password" value="14919"></property>
         <property name="dataSourceProperties">
@@ -32,19 +34,21 @@
                 <prop key="prepStmtCashSqlLimit">2048</prop>
             </props>
         </property>
-
+        
     </bean>
 
     <!-- Connection 제공 -->
     <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
         <constructor-arg ref="hikariConfig"/>
     </bean>
-    
-<!--  mybatis 설정-->
-    <bean id ="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+
+    <!-- myBatis 설정 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
-        <property name="mapperLocations" value="classpath:/mappers/**/*.xml"></property>
+        <property name="mapperLocations" value="classpath:/mappers/**/*.xml"/>
     </bean>
 
-<mybatis:scan base-package="com.hi.deptspring.deptspring.mapper"></mybatis:scan>
+    <mybatis:scan base-package="com.hi.deptspring.deptspring.mapper"></mybatis:scan>
+
+
 </beans>
