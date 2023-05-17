@@ -6,9 +6,21 @@
 <!-- namespace 속성 설정은 필수!!! -> mapper interface의 풀네임 -->
 <mapper namespace="com.hi.deptspring.deptspring.mapper.DeptMapper">
 
+    <!-- 매핑의 규칙 정의-->
+    <resultMap id="deptMap" type="com.hi.deptspring.deptspring.domain.DeptDTO">
+        <id column="deptno" property="deptno"></id>
+        <result column="dname" property="dname"></result>
+        <result column="loc" property="loc"></result>
+
+    </resultMap>
+
     <select id="selectAll"
-            resultType="com.hi.deptspring.deptspring.domain.DeptDTO"
-    >
+            resultType="com.hi.deptspring.deptspring.domain.DeptDTO">
+        select * from dept
+    </select>
+
+    <!-- 매핑의 규칙 정의 사용 예시 -->
+    <select id="selectAll2" resultMap="deptMap">
         select * from dept
     </select>
 
@@ -23,6 +35,14 @@
         insert into dept (dname, loc) values (#{dname}, #{loc})
     </insert>
 
+    <insert id="insertDept2"
+            parameterType="com.hi.deptspring.deptspring.domain.DeptDTO"
+            useGeneratedKeys="true"
+            keyProperty="deptno">
+        <!--useGeneratedKeys 자동 증가하는 키값 -->
+        insert into dept (dname, loc) values (#{dname}, #{loc})
+    </insert>
+
     <update id="updateDept"
             parameterType="com.hi.deptspring.deptspring.domain.DeptDTO">
         update dept set dname=#{dname}, loc=#{loc} where deptno=#{deptno}
@@ -33,6 +53,4 @@
     </delete>
 
 
-    
-    
 </mapper>

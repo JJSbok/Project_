@@ -39,8 +39,9 @@ public class ConnectionTest {
 
 
     @Test
-    public void getDeptListTest(){
-        List<DeptDTO> list = deptMapper.selectAll();
+    public void getDeptListTest() {
+//      List<DeptDTO> list = deptMapper.selectAll();
+        List<DeptDTO> list = deptMapper.selectAll2();
         log.info(">>>>>  " + list);
 
         log.info(deptMapper.selectByDeptno(10));
@@ -53,11 +54,9 @@ public class ConnectionTest {
     }
 
 
-
-
     @Test
-    public void getTimeMapperTest(){
-        
+    public void getTimeMapperTest() {
+
         // TimeMapper 구현체의 주입영부 , 메소드 실행 결과
 
         log.info(timeMapper.getTime());
@@ -66,18 +65,30 @@ public class ConnectionTest {
     }
 
 
-
     @Test
     public void connectionTest() throws SQLException {
 
         Connection conn = dataSource.getConnection();
 
-        log.info("conn >>> " +conn);
+        log.info("conn >>> " + conn);
 
         Assertions.assertNotNull(conn); // 전달되는 conn null 이 아니라면 테스트 성공, null 이면 테스트 실패
 
         conn.close();
 
+    }
+
+    @Test
+    public void deptInsertTest() {
+
+        DeptDTO dept = DeptDTO.builder().dname("test").loc("서울").build();
+        log.info(">>>객체 생성 : " + dept);
+
+//        deptMapper.insertDept2(dept);
+//        log.info(">>>insert 후 DeptDTO : " + dept);
+        // dept.getDeptno() >> 다른 테이블의 FK 값으로 사용
+        // insert
+        // insert
     }
 
 
