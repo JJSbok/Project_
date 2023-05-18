@@ -1,6 +1,7 @@
 package com.hi.deptspring;
 
 import com.hi.deptspring.deptspring.domain.DeptDTO;
+import com.hi.deptspring.deptspring.domain.DeptSearchOption;
 import com.hi.deptspring.deptspring.mapper.DeptMapper;
 import com.hi.deptspring.deptspring.mapper.TimeMapper;
 import com.hi.deptspring.deptspring.mapper.TimeMapper2;
@@ -39,8 +40,55 @@ public class ConnectionTest {
 
 
     @Test
-    public void getDeptListTest() {
-//      List<DeptDTO> list = deptMapper.selectAll();
+    public void seachDeptTest(){
+
+        DeptSearchOption option1 = DeptSearchOption
+                .builder()
+                .searchType("dname")
+                .keyword("ACC")
+                .build();
+
+        DeptSearchOption option3 = new DeptSearchOption();
+
+        DeptSearchOption option2 = DeptSearchOption
+                .builder()
+                .searchType("loc")
+                .keyword("NEW")
+                .build();
+
+        // 부서 이름 검색
+        List<DeptDTO> list1 = deptMapper.selectByOption(option1);
+        log.info(list1);
+
+        // 부서 위치 검색
+        List<DeptDTO> list2 = deptMapper.selectByOption(option2);
+        log.info(list2);
+        
+        // 검색어가 없는 검색
+        List<DeptDTO> list3 = deptMapper.selectByOption(option3);
+        log.info(list3);
+        
+
+    }
+
+//    @Test
+//    public void deptInsertTest(){
+//
+//        DeptDTO dept = DeptDTO.builder().dname("test").loc("서울").build();
+//        log.info(">>> 객체 생성 : " + dept);
+//
+//        deptMapper.insertDept2(dept);
+//        log.info(">>> insert 후 DeptDTO : " + dept);
+        // dept.getDeptno() -> 다른 테이블의 FK 값으로 사용
+        // insert
+        // insert
+
+//    }
+
+
+    @Test
+    public void getDeptListTest(){
+        //List<DeptDTO> list = deptMapper.selectAll2();
         List<DeptDTO> list = deptMapper.selectAll2();
         log.info(">>>>>  " + list);
 
@@ -54,9 +102,11 @@ public class ConnectionTest {
     }
 
 
-    @Test
-    public void getTimeMapperTest() {
 
+
+    @Test
+    public void getTimeMapperTest(){
+        
         // TimeMapper 구현체의 주입영부 , 메소드 실행 결과
 
         log.info(timeMapper.getTime());
@@ -65,30 +115,18 @@ public class ConnectionTest {
     }
 
 
+
     @Test
     public void connectionTest() throws SQLException {
 
         Connection conn = dataSource.getConnection();
 
-        log.info("conn >>> " + conn);
+        log.info("conn >>> " +conn);
 
         Assertions.assertNotNull(conn); // 전달되는 conn null 이 아니라면 테스트 성공, null 이면 테스트 실패
 
         conn.close();
 
-    }
-
-    @Test
-    public void deptInsertTest() {
-
-        DeptDTO dept = DeptDTO.builder().dname("test").loc("서울").build();
-        log.info(">>>객체 생성 : " + dept);
-
-//        deptMapper.insertDept2(dept);
-//        log.info(">>>insert 후 DeptDTO : " + dept);
-        // dept.getDeptno() >> 다른 테이블의 FK 값으로 사용
-        // insert
-        // insert
     }
 
 

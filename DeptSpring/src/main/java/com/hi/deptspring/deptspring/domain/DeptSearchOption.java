@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 public class DeptSearchOption {
 
-
     private String searchType;
     private String keyword;
 

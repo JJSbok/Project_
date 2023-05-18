@@ -19,20 +19,32 @@ public class DeptListController {
         this.listService = listService;
     }
 
-
     @RequestMapping("/dept/list")
-    public void getListPage(Model model,
-                            @RequestParam("searchType") String searchType,
-                            @RequestParam("keyword") String keyword) {
+    public void getListPage(
+            Model model,
+            @RequestParam(value = "searchType", defaultValue = "") String searchType,
+            @RequestParam(value = "keyword", defaultValue = "") String keyword,
+            DeptSearchOption deptSearchOption
+    ){
         log.info("GET  /dept/list");
+
         DeptSearchOption searchOption = DeptSearchOption
                 .builder()
-                .searchType(searchType.trim().length() < 1 ? null : searchType)
-                .keyword(keyword.trim().length() < 1 ? null : keyword)
+                .searchType(keyword.trim().length()<1 ? null : searchType)
+                .keyword(keyword.trim().length()<1 ? null : keyword)
                 .build();
 
-        log.info(" >>> searchOption : " + searchOption);
-        model.addAttribute("list", listService.getList());
+        log.info(">>>>>  searchOption : "+searchOption);
+
+        deptSearchOption.setKeyword(
+                deptSearchOption.getKeyword() != null && deptSearchOption.getKeyword().trim().length()>0 ? deptSearchOption.getKeyword() : null);
+        deptSearchOption.setSearchType(deptSearchOption.getKeyword() != null && deptSearchOption.getKeyword().trim().length()>0 ? deptSearchOption.getSearchType() : null);
+        log.info(">>>>>  deptSearchOption : " + deptSearchOption);
+
+
+        model.addAttribute("list", listService.getSearchList(searchOption));
+
+
     }
 
 }
