@@ -1,8 +1,25 @@
 package com.board.repository;
 
+import com.board.DTO.BoardDTO;
 import com.board.entity.BoardEntity;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
+
+
+
+    //JPA 제공하는 어노테이션 Query
+    // update board_table set board_hits = board_hits+1 where id=?
+
+    // delete와 같은 쿼리를 실행할 경우에는 modifying이라는 어노테이션이 필요 !
+    @Modifying
+    @Query(value = "update BoardEntity b set b.boardHits=b.boardHits+1 where b.id=:id")
+    void updateHits(@Param("id") Long id);
 
 }
