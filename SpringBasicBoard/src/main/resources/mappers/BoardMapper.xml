@@ -84,9 +84,10 @@
             parameterType="com.hi.board.domain.RequestRegBoard">
 
         <!-- file : 파일의 이름을 저장하는 문자열 -->
-        insert into tbl_board (title, content, writer, file)
+<!--        writer >> idx 로 변경-->
+        insert into tbl_board (title, content, memidx, file)
 
-        values (#{title}, #{content}, #{writer}, #{filename})
+        values (#{title}, #{content}, #{memidx}, #{filename})
 
     </insert>
 
@@ -98,7 +99,7 @@
 
         set title=#{title},
             content=#{content},
-            writer=#{writer},
+            memidx=#{memidx},
             file=#{filename},
             updatedate=now()
 
