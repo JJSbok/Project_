@@ -21,6 +21,7 @@
     <h1>게시글 보기</h1>
     <hr>
     ${loginInfo}
+    <hr>
     <table border="1">
         <tr>
             <td>게시글 번호</td>
@@ -57,8 +58,11 @@
     </table>
 
     <a href="/board/list">LIST</a>
+
+    <c:if test="${loginInfo.idx eq article.memidx}">
     <a href="/board/modify?bno=${article.bno}">수정</a>
     <a href="/board/delete?bno=${article.bno}">삭제</a>
+    </c:if>
 
 </body>
 </html>

@@ -26,8 +26,8 @@ public class MemberRegistController {
 
     @PostMapping
     public String regist(
-            MemberRegistRequest registRequest,
-            HttpServletRequest request
+        MemberRegistRequest registRequest,
+        HttpServletRequest request
     ){
 
         log.info(">>>>>  registRequest : " + registRequest);

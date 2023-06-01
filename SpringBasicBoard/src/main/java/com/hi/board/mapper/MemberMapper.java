@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper {
 
+
     MemberDTO selectByUidPw(String uid, String pw);
+
     // insert
     int insertMember(MemberRegistRequest registRequest);
 

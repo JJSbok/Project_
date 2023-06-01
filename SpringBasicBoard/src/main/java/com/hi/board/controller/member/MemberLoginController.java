@@ -21,20 +21,27 @@ public class MemberLoginController {
 
     @GetMapping
     public String loginForm(){
-       log.info("GET /login");
-       return "member/loginForm";
+        log.info("GET /login");
+        return "member/loginForm";
     }
 
     @PostMapping
-//    HttpSession session 현재 세션을 정보를 가져와줌
-    public String login(@RequestParam("uid") String uid, @RequestParam("pw") String pw, HttpSession session){
-        // 서비스로 uid, pw, 현재 세션 (로그인이 되었을 때 속성에 회원 정보를 저장) 전달
+    public String login(
+            @RequestParam("uid") String uid,
+            @RequestParam("pw") String pw,
+            HttpSession session
+    ){
+
+        // 서비스로 uid, pw, 현재 세션(로그인이 되었을 때 속성에 회원 정보를 저장) 전달
         boolean result = loginService.login(uid, pw, session);
-        // 서비스 : 로그인 처리 >> 응답(로그인 성공 , 실패)
+
+        // 서비스 : 로그인 처리 -> 응답(로그인 성공, 실패)
         if(result){
             return "redirect:/board/list";
         }
+
         return "redirect:/login";
 
     }
+
 }

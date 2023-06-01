@@ -27,12 +27,12 @@ public class MemberRegistService {
         // 첨부 파일이 있으면 파일 저장
         if (registRequest.getUphoto() != null
                 && registRequest.getUphoto().getSize()>0){
-
+            
             // 저장 URI => 폴더
             String uri = "/uploadfile/member";
             // 실제 경로
             String realPath = request.getSession().getServletContext().getRealPath(uri) ;
-
+            
             // 새로운 파일 이름 생성 : uid_파일이름
             String newFileName = registRequest.getUid()
                     +"_"+registRequest.getUphoto().getOriginalFilename();

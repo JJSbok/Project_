@@ -8,14 +8,16 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @Log4j2
-
 public class MemberLogoutController {
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session){
+    public String logout(
+            HttpSession session
+    ){
+
         log.info("/logout ...");
         session.invalidate();
-        return "redirect:/login";
 
+        return "redirect:/login";
     }
 }
