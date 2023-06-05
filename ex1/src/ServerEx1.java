@@ -20,7 +20,7 @@ public class ServerEx1 {
 
             // 읽기 위한 InputStream 필요
             InputStream in = clientSocket.getInputStream();
-            FileOutputStream fos = new FileOutputStream("/Users/jsj/zzz/12.jpeg");
+            FileOutputStream fos = new FileOutputStream("/Users/jsj/zzz/client"+i+".jpeg");
 
             // 읽고 쓰기
             while(true){
